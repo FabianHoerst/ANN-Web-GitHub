@@ -1,30 +1,22 @@
-# Import data modules
-import numpy as np
-import pandas as pd
-import dash
+'''
+Code for the /mdp webapp
+'''
 
 # import plot modules
-import plotly.express as px
 import plotly.graph_objects as go
 
-# import data generation function
-from algorithms.data.data_generation_linear_regression import get_data_points
-from algorithms.linear_regression_algorithm import regression
-
 # import ml toolbox
-from sklearn.linear_model import LinearRegression
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-import dash_daq as daq
 import plotly.figure_factory as ff
 
 from app import app
 from algorithms import mdp
 from algorithms.data.robot_mdp import *
 
-
+# layout
 layout = html.Div([
     dbc.Container(className='center', children=[
         dbc.Row(children=[
@@ -210,16 +202,18 @@ layout = html.Div([
     ])
 ])
 
-# Callback for oder
+# Callback for plotting
 @app.callback([Output('heatmap-plot', 'figure'), Output('cost_div', 'children'), Output('gamma_div', 'children'),],
               [Input('gamma', 'value'), Input('costs', 'value'), Input('policy_selection', 'value')])
 def update_output(gamma, costs, policy_selection):
-
+    # generate robot
     markov_Robot = generate_Robot_MDP(costs)
+    # initialize z_text
     z_text = [['', '', '', ''],
               ['', '', '', '-1'],
               ['', '', '', '1']]
 
+    # check which policy was selected
     if policy_selection == 1:
         policy_value = markov_Robot.bellman_eq_policy(policy1, gamma)
         z_text = plot_z(policy1, z_text, policy_value)
@@ -240,6 +234,7 @@ def update_output(gamma, costs, policy_selection):
     x = ['1', '2', '3', '4']
     y = ['1', '2', '3']
 
+    # plotting
     figure = ff.create_annotated_heatmap(z, x=x, y=y, annotation_text=z_text, colorscale='Greys')
     figure.update_layout(template='plotly_dark', showlegend=False, font=dict(size = 16))
     figure.add_trace(go.Scatter(x=[1.5, 1.5],

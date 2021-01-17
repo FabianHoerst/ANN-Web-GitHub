@@ -1,8 +1,9 @@
+'''
+Code for the /gradient_descent webapp
+'''
+
 # Import data modules
 import numpy as np
-import pandas as pd
-import dash
-import dash_table
 
 # import plot modules
 import plotly.express as px
@@ -12,16 +13,15 @@ import plotly.graph_objects as go
 from algorithms.gradient_descent_algorithms import gradient_descent_alg
 
 # import ml toolbox
-from sklearn.linear_model import LinearRegression
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import dash_daq as daq
-import dash_gif_component as Gif
 
 from app import app
 
+# build the layout
 layout = html.Div([
     dbc.Container(className='center', children=[
         dbc.Row(children=[
@@ -217,22 +217,25 @@ layout = html.Div([
     ])
 ])
 
+# function1
 def function1(x):
     return x**2
-
 def dfunction1(x):
     return 2*x
 
+# function2
 def function2(x):
     return 0.01 * x ** 4 + 0.1 * x ** 3 - x ** 2 - 4 * x + 12
-
 def dfunction2(x):
     return 0.04*x**3 + 0.3*x**2 -2*x -4
 
-# Callback
+# Callbacks
+
+# Callback 1 for visualization 1
 @app.callback([Output('gradient-plot-1', 'figure'), Output('learning_rate_div', 'children')],
               [Input('starting_point', 'value'), Input('learning_rate', 'value'), Input('iterations', 'value')])
 def update_output(starting_point1, learning_rate1, iterations1):
+    # build x and y values
     x1 = np.linspace(-5, 5, 1000)
     y1 = function1(x1)
 
@@ -266,12 +269,14 @@ def update_output(starting_point1, learning_rate1, iterations1):
             'Value selected to high! No convergence! Gradient descent failed'])]
 
 
-# Callback
+# Callback 2 for visualization 2
 @app.callback([Output('gradient-plot-2', 'figure'), Output('learning_rate_div2', 'children')],
               [Input('starting_point2', 'value'), Input('learning_rate2', 'value'), Input('iterations2', 'value')])
 def update_output(starting_point2, learning_rate2, iterations2):
+    # build x and y values
     x2 = np.linspace(-15, 10, 1000)
     y2 = function2(x2)
+    # set optimal values for plotting
     x2_min = np.array([-11.173717371737, 5.347134713471])
     y2_min = function2(x2_min)
 

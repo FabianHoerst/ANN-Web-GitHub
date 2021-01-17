@@ -1,27 +1,13 @@
-# Import data modules
-import numpy as np
-import pandas as pd
-import dash
-import dash_table
+'''
+Code for the /stoch_gradient_descent webapp
+'''
 
-# import plot modules
-import plotly.express as px
-import plotly.graph_objects as go
-
-# import data generation function
-from algorithms.gradient_descent_algorithms import gradient_descent_alg
-
-# import ml toolbox
-from sklearn.linear_model import LinearRegression
-import dash_core_components as dcc
+# import modules
 import dash_html_components as html
-from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 import dash_daq as daq
-import dash_gif_component as Gif
 
-from app import app
-
+# layout
 layout = html.Div([
     dbc.Container(className='center', children=[
         dbc.Row(children=[
@@ -182,3 +168,4 @@ layout = html.Div([
     ])
 ])
 
+# tbd: Callbacks for plotting

@@ -1,7 +1,6 @@
-# Import data modules
-import numpy as np
-import pandas as pd
-import dash
+'''
+Code for the /linear_regression webapp
+'''
 
 # import plot modules
 import plotly.express as px
@@ -12,7 +11,6 @@ from algorithms.data.data_generation_linear_regression import get_data_points
 from algorithms.linear_regression_algorithm import regression
 
 # import ml toolbox
-from sklearn.linear_model import LinearRegression
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
@@ -21,6 +19,7 @@ import dash_daq as daq
 
 from app import app
 
+# define layout for the input menu (left hand side)
 parameter_input = [dbc.Row(children=[
     dbc.Col(className='md-6', children=[
         'offset',
@@ -95,6 +94,7 @@ parameter_input = [dbc.Row(children=[
         ]),
     ])]
 
+# define layout
 layout = html.Div([
     dbc.Container(className='center', children=[
         dbc.Row(children=[
@@ -256,7 +256,7 @@ layout = html.Div([
 ])
 
 
-# Callback for oder
+# Callback for selecting order
 @app.callback([Output('param6', 'disabled'), Output('param5', 'disabled'),
                Output('param4', 'disabled'), Output('param3', 'disabled'), Output('param2', 'disabled'),
                Output('param1', 'disabled'), Output('offset', 'disabled')],
@@ -278,7 +278,7 @@ def update_output(value):
         return (True, True, True, True, True, True, True)
 
 
-# Callback for oder
+# Callback for options and plotting
 @app.callback(Output('scatter-plot', 'figure'),
               [Input('order_reg', 'value'), Input('order', 'value'),
                Input('param6', 'value'), Input('param5', 'value'), Input('param4', 'value'),
