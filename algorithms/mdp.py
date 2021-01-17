@@ -1,3 +1,4 @@
+# import numpy module for calculations
 import numpy as np
 
 class MDP():

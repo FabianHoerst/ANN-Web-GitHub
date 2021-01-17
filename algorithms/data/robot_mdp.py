@@ -3,8 +3,14 @@ Define the Robot MDP Properties
 '''
 from algorithms.mdp import *
 
-
 def generate_Robot_MDP(step_cost = -0.04):
+    '''
+    Function, that generates a mdp for the Robot problem
+
+    :param step_cost: costs for one movement step
+    :return: MDP
+    '''
+    # define states, actions, probabilities and rewards
     states = ('(1,1)', '(1,2)', '(1,3)', '(2,1)', '(2,3)', '(3,1)', '(3,2)', '(3,3)', '(4,1)', '(4,2)', '(4,3)')
     actions = ('UP', 'DOWN', 'LEFT', 'RIGHT', 'STAY')
     probabilities = {
@@ -230,6 +236,13 @@ def generate_Robot_MDP(step_cost = -0.04):
     return markov
 
 def plot_z(policy, z, policy_value):
+    '''
+    Adding the actions that the robot should perform in a state to the grid(states) and show the values of the states
+    :param policy: Dictionary mapping from state to action, e.g. policy = { 's1': 'a1', 's2': 'a2',...}
+    :param z: list with information of the states
+    :param policy_value: dictionary containing the value function, e.g. v = { 's1': 123.6, 's2': -1.1,...}
+    :return: z with added informations
+    '''
     if policy['(1,1)'] == 'UP':
         z[0][0] = '↑, V=' + str(round(policy_value['(1,1)'], 4))
     if policy['(1,1)'] == 'DOWN':
@@ -316,7 +329,7 @@ def plot_z(policy, z, policy_value):
 
     return z
 
-
+# define some example policies
 policy1 = {
         '(1,1)' : 'RIGHT',
         '(1,2)' : 'DOWN',

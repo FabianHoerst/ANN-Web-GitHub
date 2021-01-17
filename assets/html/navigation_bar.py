@@ -6,10 +6,11 @@ This File contains the navigation_bar of the website
 import dash_bootstrap_components as dbc
 import dash_html_components as html
 
-FIRM_LOGO = "assets/logo.png"
+LOGO = "assets/logo.png"
 # make a reuseable navitem for the different examples
 nav_item = dbc.NavItem(dbc.NavLink("Link", href="#"))
 
+# define the different dropdown lists
 dropdown_lin_reg = dbc.DropdownMenu(
     children=[
         dbc.DropdownMenuItem("Regression analytical solution", href="/linear_regression"),
@@ -40,15 +41,14 @@ dropdown_ann = dbc.DropdownMenu(
     label = "Artifical Neural Networks (ANN)",
 )
 
-# this example that adds a logo to the navbar brand
+# build navbar with logo
 navbar = dbc.Navbar(
     dbc.Container(
         [
             html.A(
-                # Use row and col to control vertical alignment of logo / brand
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src=FIRM_LOGO, height="60px")),
+                        dbc.Col(html.Img(src=LOGO, height="60px")),
                     ],
                     align="center",
                     no_gutters=True,
